@@ -1,6 +1,7 @@
 import React from 'react';
 import { StatusBar } from 'react-native';
 import { ThemeProvider } from 'styled-components/native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import {
   useFonts,
   Inter_400Regular,
@@ -12,10 +13,10 @@ import {
   Archivo_600SemiBold
 } from '@expo-google-fonts/archivo';
 import AppLoading from 'expo-app-loading';
+import { NavigationContainer } from '@react-navigation/native';
 
 import theme from './src/styles/theme';
-
-import { Home } from './src/screens/Home';
+import { StackRoutes } from './src/routes/stack.routes';
 
 export function App() {
   const [fontsLoaded] = useFonts({
@@ -29,13 +30,17 @@ export function App() {
   if (!fontsLoaded) return <AppLoading />
   
   return (
-    <ThemeProvider theme={theme}>
-      <StatusBar
-        barStyle="light-content"
-        backgroundColor="transparent"
-        translucent
-      />
-      <Home />
-    </ThemeProvider>
+    <GestureHandlerRootView style={{ flex: 1, }}>
+      <ThemeProvider theme={theme}>
+        <StatusBar
+          barStyle="light-content"
+          backgroundColor="transparent"
+          translucent
+        />
+        <NavigationContainer>
+          <StackRoutes />
+        </NavigationContainer>
+      </ThemeProvider>
+    </GestureHandlerRootView>
   );
 }
