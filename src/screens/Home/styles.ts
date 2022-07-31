@@ -1,9 +1,11 @@
 import styled from 'styled-components/native';
 import { RFValue } from 'react-native-responsive-fontsize';
-import { StatusBar } from 'react-native';
+import { FlatList, StatusBar } from 'react-native';
 
 export const Container = styled.View`
   flex: 1;
+
+  background-color: ${({ theme }) => theme.colors.background_primary};
 `;
 
 export const Header = styled.View`
@@ -27,10 +29,9 @@ export const Total = styled.Text`
   margin-right: 8px;
 `;
 
-export const Main = styled.View`
-  flex: 1;
-
-  background-color: ${({ theme }) => theme.colors.background_primary};
-
-  padding: 0 16px;
-`;
+export const CarList = styled(FlatList).attrs({
+  contentContainerStyle: {
+    padding: 16,
+  },
+  showVerticalScrollIndicator: false
+})``

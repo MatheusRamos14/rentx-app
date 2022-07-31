@@ -21,16 +21,19 @@ interface CarCardProps {
         period: string;
         price: string;
     }
-    photo: string;
+    thumbnail: string;
 }
 
 interface Props {
-    data: CarCardProps
+    data: CarCardProps,
+    handleNavigate: () => void;
 }
 
-export function Car({ data }: Props) {
+export function Car({ data, handleNavigate }: Props) {
   return (
-    <Container>
+    <Container
+        onPress={handleNavigate}
+    >
         <Details>
             <Brand>{data.brand}</Brand>
             <Name>{data.name}</Name>
@@ -47,7 +50,7 @@ export function Car({ data }: Props) {
             </About>
         </Details>
         <Photo
-            source={{ uri: data.photo }}
+            source={{ uri: data.thumbnail }}
         />
     </Container>
   );
