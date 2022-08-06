@@ -7,6 +7,8 @@ export const Container = styled.View`
     flex: 1;
 
     background-color: ${({ theme }) => theme.colors.background_secondary};
+
+    padding-top: ${getStatusBarHeight() + 32}px;
 `;
 
 export const Header = styled.View`
@@ -15,15 +17,11 @@ export const Header = styled.View`
     justify-content: space-between;
 
     position: absolute;
-    margin-top: 18px;
+    margin-top: 50px;
     margin-left: 24px;
-    padding-top: ${getStatusBarHeight()}px;
 `;
 
-export const CarImages = styled.View`
-    margin-top: 32px;
-    padding-top: ${getStatusBarHeight()}px;
-`;
+export const CarImages = styled.View``;
 
 export const Content = styled.ScrollView.attrs({
     contentContainerStyle: {

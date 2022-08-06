@@ -1,6 +1,7 @@
 import React from 'react';
 import { StatusBar, useWindowDimensions } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
+import { useNavigation, StackActions } from '@react-navigation/native';
 
 import Logo from '../../assets/logo_background_gray.svg';
 import Check from '../../assets/done.svg';
@@ -17,6 +18,11 @@ import {
 
 export function Confirmation() {
     const { width } = useWindowDimensions();
+    const { dispatch } = useNavigation();
+
+    function handleGoAllBack() {
+        dispatch(StackActions.popToTop());
+    }
 
     return (
         <Container>
@@ -48,7 +54,9 @@ export function Confirmation() {
             </Info>
 
             <Footer>
-                <Button>
+                <Button
+                    onPress={handleGoAllBack}
+                >
                     <Label>Ok</Label>
                 </Button>
             </Footer>

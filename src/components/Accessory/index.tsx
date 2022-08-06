@@ -6,12 +6,12 @@ import {
     Title,
 } from './styles';
 
-interface AcessoryProps {
+interface AccessoryProps {
     title: string;
     icon: React.FC<SvgProps>
 }
 
-export function Acessory({ title, icon: Icon }:  AcessoryProps) {
+export function Accessory({ title, icon: Icon }:  AccessoryProps) {
     return (
         <Container>
             <Icon />

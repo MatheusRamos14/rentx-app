@@ -12,7 +12,7 @@ import peopleSvg from '../../assets/people.svg';
 
 import { BackButton } from '../../components/BackButton';
 import { ImageSlider } from '../../components/ImageSlider';
-import { Acessory } from '../../components/Acessory';
+import { Accessory } from '../../components/Accessory';
 import { Button } from '../../components/Button';
 import {
   Container,
@@ -59,9 +59,7 @@ export function ScheduleDetails() {
         backgroundColor="transparent"
       />
       <Header>
-        <BackButton
-          onPress={() => { console.log('opa') }}
-        />
+        <BackButton />
       </Header>
 
       <CarImages>
@@ -85,27 +83,27 @@ export function ScheduleDetails() {
         </Info>
 
         <Acessories>
-          <Acessory
+          <Accessory
             title="380km/h"
             icon={speedSvg}
           />
-          <Acessory
+          <Accessory
             title="3.2s"
             icon={accelerationSvg}
           />
-          <Acessory
+          <Accessory
             title="800 HP"
             icon={forceSvg}
           />
-          <Acessory
+          <Accessory
             title="Gasolina"
             icon={gasolineSvg}
           />
-          <Acessory
+          <Accessory
             title="Auto"
             icon={exchangeSvg}
           />
-          <Acessory
+          <Accessory
             title="2 pessoas"
             icon={peopleSvg}
           />

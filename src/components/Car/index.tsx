@@ -1,7 +1,8 @@
 import React from 'react';
 
-import GasolineSVG from '../../assets/gasoline.svg'
-import { 
+import { CarDTO } from '../../dtos/CarDTO';
+import { getAccessoryIcon } from '../../utils/getAccessoryIcon';
+import {
     Container,
     Details,
     Photo,
@@ -13,45 +14,36 @@ import {
     Price,
     Type,
 } from './styles';
-
-interface CarCardProps {
-    brand: string;
-    name: string;
-    rent: {
-        period: string;
-        price: string;
-    }
-    thumbnail: string;
-}
-
 interface Props {
-    data: CarCardProps,
+    data: CarDTO,
     handleNavigate: () => void;
 }
 
 export function Car({ data, handleNavigate }: Props) {
-  return (
-    <Container
-        onPress={handleNavigate}
-    >
-        <Details>
-            <Brand>{data.brand}</Brand>
-            <Name>{data.name}</Name>
+    const MotorIcon = getAccessoryIcon(data.fuel_type);
 
-            <About>
-                <Rent>
-                    <Period>{data.rent.period}</Period>
-                    <Price>{data.rent.price}</Price>
-                </Rent>
+    return (
+        <Container
+            onPress={handleNavigate}
+        >
+            <Details>
+                <Brand>{data.brand}</Brand>
+                <Name>{data.name}</Name>
 
-                <Type>
-                    <GasolineSVG />
-                </Type>
-            </About>
-        </Details>
-        <Photo
-            source={{ uri: data.thumbnail }}
-        />
-    </Container>
-  );
+                <About>
+                    <Rent>
+                        <Period>{data.rent.period}</Period>
+                        <Price>R$ {data.rent.price}</Price>
+                    </Rent>
+
+                    <Type>
+                        <MotorIcon />
+                    </Type>
+                </About>
+            </Details>
+            <Photo
+                source={{ uri: data.thumbnail }}
+            />
+        </Container>
+    );
 }

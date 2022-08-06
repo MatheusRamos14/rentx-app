@@ -83,7 +83,7 @@ export const Description = styled.Text`
     text-align: justify;
 `;
 
-export const Acessories = styled.View`
+export const Accessories = styled.View`
     width: 100%;
 
     flex-direction: row;
