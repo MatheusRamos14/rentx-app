@@ -37,7 +37,7 @@ export const Dates = styled.View`
     margin-bottom: 32px;
 `;
 
-export const Date = styled.View`
+export const DateContainer = styled.View`
     width: 30%;
 `;
 

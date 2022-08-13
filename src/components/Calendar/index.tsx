@@ -2,40 +2,41 @@ import React from 'react';
 import { Feather } from '@expo/vector-icons';
 import {
     Calendar as CustomCalendar,
-    LocaleConfig
+    LocaleConfig,
+    DateData,
 } from 'react-native-calendars';
 import { useTheme } from 'styled-components/native';
 import { RFValue } from 'react-native-responsive-fontsize';
 
-LocaleConfig.locales['pt-br'] = {
-    monthNames: [
-        'Janeiro',
-        'Fevereiro',
-        'Março',
-        'Abril',
-        'Maio',
-        'Junho',
-        'Julho',
-        'Agosto',
-        'Setembro',
-        'Outubro',
-        'Novembro',
-        'Dezembro'
-      ],
-      monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-      dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
-      dayNamesShort: ['DOM', 'SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SAB'],
-      today: "Hoje"
-}
-LocaleConfig.defaultLocale = 'pt-br'
+import { generateInterval } from './generateInterval';
+import { ptBR } from './localeConfig';
 
-export function Calendar() {
+LocaleConfig.locales['pt-br'] = ptBR;
+LocaleConfig.defaultLocale = 'pt-br';
+
+interface MarkedDateProps {
+    [date: string]: {
+        color: string;
+        textColor: string;
+        disabled?: boolean;
+        disableTouchEvent?: boolean;
+    }
+}
+interface CalendarProps {
+    markedDates: MarkedDateProps;
+    onDayPress: (date: DateData) => void;
+}
+
+function Calendar({ markedDates, onDayPress }: CalendarProps) {
     const theme = useTheme();
 
     return (
         <CustomCalendar
             firstDay={1}
             minDate={String(new Date())}
+            markingType="period"
+            markedDates={markedDates}
+            onDayPress={onDayPress}
             renderArrow={(direction) => (
                 <Feather
                     name={direction === 'left' ? 'chevron-left' : 'chevron-right'}
@@ -63,4 +64,11 @@ export function Calendar() {
             }}
         />
     )
+}
+
+export {
+    Calendar,
+    DateData,
+    MarkedDateProps,
+    generateInterval,
 }

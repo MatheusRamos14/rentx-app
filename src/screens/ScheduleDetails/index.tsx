@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StatusBar } from 'react-native';
 import { useTheme } from 'styled-components/native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 import speedSvg from '../../assets/speed.svg';
 import accelerationSvg from '../../assets/acceleration.svg';
@@ -10,6 +10,7 @@ import gasolineSvg from '../../assets/gasoline.svg';
 import exchangeSvg from '../../assets/exchange.svg';
 import peopleSvg from '../../assets/people.svg';
 
+import { CarDTO } from '../../dtos/CarDTO';
 import { BackButton } from '../../components/BackButton';
 import { ImageSlider } from '../../components/ImageSlider';
 import { Accessory } from '../../components/Accessory';
@@ -47,9 +48,16 @@ export function ScheduleDetails() {
   const theme = useTheme();
   const { navigate } = useNavigation();
 
+  const { params } = useRoute();
+  const { car, dates } = params as { car: CarDTO, dates: Date[] };
+
   function handleNavigate() {
     navigate('Confirmation')
   }
+
+  useEffect(() => {
+    console.log(car, dates)
+  }, [])
 
   return (
     <Container>

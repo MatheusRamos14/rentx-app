@@ -31,7 +31,7 @@ export function CarCardDetails() {
   const { car } = params as { car: CarDTO };
 
   function handleNavigate() {
-    navigate('Schedule')
+    navigate('Schedule', { car, })
   }
   return (
     <Container>
