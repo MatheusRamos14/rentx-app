@@ -27,7 +27,7 @@ import {
     Footer,
 } from './styles';
 
-interface RentalPeriodProps {
+export interface RentalPeriodProps {
     startFormatted: string;
     endFormatted: string;
 }

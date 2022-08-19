@@ -128,8 +128,7 @@ export const Label = styled.Text`
     margin-bottom: 8px;
 `;
 
-
-export const Date = styled.Text`
+export const DateValue = styled.Text`
     color: ${({ theme }) => theme.colors.title};
     font-size: ${RFValue(15)}px;
     font-family: ${({ theme }) => theme.fonts.primary_500};
