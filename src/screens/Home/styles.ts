@@ -2,6 +2,9 @@ import styled from 'styled-components/native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { FlatList, FlatListProps } from 'react-native';
 import { CarDTO } from '../../dtos/CarDTO';
+import { getBottomSpace } from 'react-native-iphone-x-helper';
+import { Ionicons } from '@expo/vector-icons';
+import { RectButton } from 'react-native-gesture-handler';
 
 export const Container = styled.View`
   flex: 1;
@@ -38,3 +41,33 @@ export const CarList = styled(
   },
   showVerticalScrollIndicator: false
 })``
+
+export const ButtonContainer = styled.View`
+  width: 100%;
+
+  justify-content: center;
+  align-items: flex-end;
+
+  position: absolute;
+  bottom: ${0 + getBottomSpace()}px;
+`;
+
+export const ButtonWrapper = styled.View``;
+
+export const Button = styled(RectButton)`
+  width: 64px;
+  height: 64px;
+  background-color: ${({ theme }) => theme.colors.main};
+  border-radius: 30px;
+
+  justify-content: center;
+  align-items: center;
+
+  margin: 12px 22px;
+`;
+
+export const ButtonIcon = styled(Ionicons).attrs({
+  size: 32,
+  name: 'ios-car-sport-sharp',
+  color: '#FFF'
+})``;

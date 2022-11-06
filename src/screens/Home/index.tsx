@@ -12,6 +12,10 @@ import {
   Header,
   Total,
   CarList,
+  ButtonContainer,
+  ButtonWrapper,
+  Button,
+  ButtonIcon,
 } from './styles';
 
 export function Home() {
@@ -20,8 +24,12 @@ export function Home() {
 
   const navigation = useNavigation();
 
-  function handleNavigate(carDetails: CarDTO) {
+  function handleNavigateDetails(carDetails: CarDTO) {
     navigation.navigate('CarCardDetails', { car: carDetails })
+  }
+
+  function handleNavigateMyCars() {
+    navigation.navigate('MyCars')
   }
 
   useEffect(() => {
@@ -60,11 +68,18 @@ export function Home() {
           renderItem={({ item }) => (
             <Car
               data={item}
-              handleNavigate={() => handleNavigate(item)}
+              handleNavigate={() => handleNavigateDetails(item)}
             />
           )}
         />
       ) }
+      <ButtonContainer>
+        <ButtonWrapper>
+          <Button onPress={handleNavigateMyCars}>
+            <ButtonIcon/>
+          </Button>
+        </ButtonWrapper>
+      </ButtonContainer>
     </Container>
   );
 }
