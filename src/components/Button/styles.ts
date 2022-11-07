@@ -9,6 +9,7 @@ export const Container = styled(RectButton)<ButtonProps>`
     height: 56px;
 
     background-color: ${({ color, theme }) => color ? color : theme.colors.main};
+    opacity: ${({ enabled }) => enabled ? 1 : 0.3};
 
     align-items: center;
     justify-content: center;
