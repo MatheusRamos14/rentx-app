@@ -6,21 +6,21 @@ export const Container = styled.View`
     flex: 1;
 
     background-color: ${({ theme }) => theme.colors.background_secondary};
-
-    padding-top: ${getStatusBarHeight() + 32}px;
 `;
 
 export const Header = styled.View`
     flex-direction: row;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
 
     position: absolute;
-    margin-top: 50px;
+    margin-top: ${getStatusBarHeight() + 18}px;
     margin-left: 24px;
 `;
 
-export const CarImages = styled.View``;
+export const CarImages = styled.View`
+    margin-top: ${getStatusBarHeight() + 32}px;
+`;
 
 export const Content = styled.ScrollView.attrs({
     contentContainerStyle: {
@@ -40,7 +40,7 @@ export const Info = styled.View`
     align-items: center;
     justify-content: space-between;
 
-    margin-bottom: 16px;
+    margin-bottom: 38px;
 `;
 
 export const Model = styled.View``;
