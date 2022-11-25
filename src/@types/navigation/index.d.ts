@@ -6,6 +6,7 @@ type AppStackRoutes = {
     Schedule: any;
     ScheduleDetails: any;
     Confirmation: any;
+    MyCars: any;
 }
 
 declare global {

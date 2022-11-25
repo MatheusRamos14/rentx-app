@@ -17,10 +17,10 @@ import {
 } from './styles';
 
 export function Splash() {
-    const { navigate } = useNavigation();
+    const navigation = useNavigation();
 
     function start() {
-        navigate('Home')        
+        navigation.navigate('Home')
     }
 
     const splashAnimation = useSharedValue(0);

@@ -47,12 +47,7 @@ export const ButtonContainer = styled.View`
 
   justify-content: center;
   align-items: flex-end;
-
-  position: absolute;
-  bottom: ${0 + getBottomSpace()}px;
 `;
-
-export const ButtonWrapper = styled.View``;
 
 export const Button = styled(RectButton)`
   width: 64px;

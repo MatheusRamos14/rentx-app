@@ -21,7 +21,6 @@ import {
   Container,
   Header,
   CarImages,
-  Content,
   Info,
   Model,
   Brand,
@@ -43,7 +42,6 @@ export function CarCardDetails() {
   const scrollAnimation = useSharedValue(0);
 
   const scrollHandler = useAnimatedScrollHandler(event => {
-    console.log(event.contentOffset.y);
     scrollAnimation.value = event.contentOffset.y
   })
 
