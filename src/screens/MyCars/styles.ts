@@ -3,7 +3,7 @@ import { RFValue } from 'react-native-responsive-fontsize';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 
 export const Container = styled.View`
-    width: 100%;
+    flex: 1;
 `;
 
 export const Header = styled.View`

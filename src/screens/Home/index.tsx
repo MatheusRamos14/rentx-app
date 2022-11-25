@@ -14,7 +14,7 @@ import Logo from '../../assets/logo.svg';
 import { api } from '../../services/api';
 import { CarDTO } from '../../dtos/CarDTO';
 import { Car } from '../../components/Car';
-import { Load } from '../../components/Load';
+import { LoadingCar } from '../../components/LoadingCar';
 import {
   Container,
   Header,
@@ -94,7 +94,7 @@ export function Home() {
         }
       </Header>
 
-      {loading ? <Load /> : (
+      {loading ? <LoadingCar /> : (
         <CarList
           data={cars}
           keyExtractor={item => item.id}

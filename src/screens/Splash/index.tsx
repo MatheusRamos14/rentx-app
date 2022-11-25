@@ -17,10 +17,13 @@ import {
 } from './styles';
 
 export function Splash() {
-    const navigation = useNavigation();
+    const { reset } = useNavigation();
 
     function start() {
-        navigation.navigate('Home')
+        reset({
+            index: 0,
+            routes: [{ name: 'Home' }]
+        })
     }
 
     const splashAnimation = useSharedValue(0);
