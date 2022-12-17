@@ -12,9 +12,10 @@ export interface ButtonProps extends RectButtonProps {
     color?: string;
     loading?: boolean;
     enabled?: boolean;
+    light?: boolean;
 }
 
-export function Button({ title, color, loading, enabled, ...rest }: ButtonProps) {
+export function Button({ title, color, loading, enabled, light, ...rest }: ButtonProps) {
     return (
         <Container
             color={color}
@@ -27,7 +28,7 @@ export function Button({ title, color, loading, enabled, ...rest }: ButtonProps)
                     color="white"
                 />
                 :
-                <Title>{title}</Title>
+                <Title light={light}>{title}</Title>
             }
         </Container>
     )
