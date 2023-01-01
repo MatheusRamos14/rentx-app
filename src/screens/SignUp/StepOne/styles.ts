@@ -3,7 +3,7 @@ import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { RFValue } from 'react-native-responsive-fontsize';
 
 export const Container = styled.View`
-    flex: 1;
+    background-color: ${({ theme }) => theme.colors.background_primary};
 
     padding: ${getStatusBarHeight() + 16}px 24px 0;
 `;
@@ -35,4 +35,21 @@ export const SubTitle = styled.Text`
     font-size: ${RFValue(15)}px;
 
     margin-top: 16px;
+`;
+
+export const Form = styled.View`
+    width: 100%;
+`;
+
+export const FormTitle = styled.Text`
+    color: ${({ theme }) => theme.colors.title};
+    font-family: ${({ theme }) => theme.fonts.secondary_600};
+    font-size: ${RFValue(20)}px;
+    
+    margin-top: 64px;
+    margin-bottom: 24px;
+`;
+
+export const Inputs = styled.View`
+    margin-bottom: 8px;
 `;
