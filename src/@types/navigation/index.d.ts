@@ -7,6 +7,8 @@ type AppStackRoutes = {
     ScheduleDetails: any;
     Confirmation: any;
     MyCars: any;
+    SignUpFirstStep: any;
+    Login: any;
 }
 
 declare global {

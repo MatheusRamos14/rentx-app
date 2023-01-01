@@ -5,6 +5,7 @@ import {
     StatusBar,
     TouchableWithoutFeedback
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { useTheme } from 'styled-components/native';
 import * as Yup from 'yup';
 
@@ -22,6 +23,7 @@ import { PasswordInput } from '../../components/PasswordInput';
 
 export function Login() {
     const theme = useTheme();
+    const { navigate } = useNavigation();
     const [email, setEmail] =  useState('');
     const [password, setPassword] =  useState('');
 
@@ -39,6 +41,10 @@ export function Login() {
             else
                 Alert.alert('Erro interno ao efetuar login')
         }
+    }
+
+    function handleNavigateSignUp() {
+        navigate('SignUpFirstStep')
     }
 
     return (
@@ -93,6 +99,7 @@ export function Login() {
                     <Button
                         color={theme.colors.background_secondary}
                         title="Criar uma conta gratuita"
+                        onPress={handleNavigateSignUp}
                         enabled
                         light
                     />
