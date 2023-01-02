@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
+    Alert,
     Keyboard,
     KeyboardAvoidingView,
     TouchableWithoutFeedback,
 } from 'react-native';
 import { useTheme } from 'styled-components/native';
+import { useRoute } from '@react-navigation/native';
 
 import { BackButton } from '../../../components/BackButton';
 import { Bullet } from '../../../components/Bullet';
 import { Button } from '../../../components/Button';
+import { PasswordInput } from '../../../components/PasswordInput';
 import {
     Container,
     Header,
@@ -19,10 +22,31 @@ import {
     FormTitle,
     Inputs,
 } from './styles';
-import { PasswordInput } from '../../../components/PasswordInput';
+
+interface Params {
+    name: string;
+    email: string;
+    driverLicense: string;
+}
 
 export function SignUpSecondStep() {
     const theme = useTheme();
+
+    const { params } = useRoute();
+    const { name, email, driverLicense } = params as Params;
+
+    const [password, setPassword] = useState('');
+    const [confirmation, setConfirmation] = useState('');
+
+    function handleRegister() {
+        if (!password || !confirmation)
+            Alert.alert('É necessário preencher os dois campos.');
+
+        if (password !== confirmation)
+            Alert.alert('As senhas não coincidem.');
+
+        // Registro
+    }
 
     return (
         <KeyboardAvoidingView behavior='position' enabled>
@@ -55,19 +79,23 @@ export function SignUpSecondStep() {
                                 placeholder='Senha'
                                 autoCapitalize='none'
                                 autoCorrect={false}
+                                value={password}
+                                onChangeText={setPassword}
                             />
                             <PasswordInput
                                 iconName='lock'
                                 placeholder='Repetir senha'
                                 autoCapitalize='none'
                                 autoCorrect={false}
+                                value={confirmation}
+                                onChangeText={setConfirmation}
                             />
                         </Inputs>
 
                         <Button
                             color={theme.colors.success}
                             title="Cadastrar"
-                            onPress={() => { }}
+                            onPress={handleRegister}
                         />
                     </Form>
                 </Container>
