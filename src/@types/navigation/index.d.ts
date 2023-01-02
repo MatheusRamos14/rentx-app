@@ -8,6 +8,7 @@ type AppStackRoutes = {
     Confirmation: any;
     MyCars: any;
     SignUpFirstStep: any;
+    SignUpSecondStep: any;
     Login: any;
 }
 

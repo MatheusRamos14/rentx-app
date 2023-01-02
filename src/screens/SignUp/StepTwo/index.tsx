@@ -4,11 +4,10 @@ import {
     KeyboardAvoidingView,
     TouchableWithoutFeedback,
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useTheme } from 'styled-components/native';
 
 import { BackButton } from '../../../components/BackButton';
 import { Bullet } from '../../../components/Bullet';
-import { Input } from '../../../components/Input';
 import { Button } from '../../../components/Button';
 import {
     Container,
@@ -20,13 +19,10 @@ import {
     FormTitle,
     Inputs,
 } from './styles';
+import { PasswordInput } from '../../../components/PasswordInput';
 
-export function SignUpFirstStep() {
-    const { navigate } = useNavigation();
-
-    function handleAdvance() {
-        navigate('SignUpSecondStep');
-    }
+export function SignUpSecondStep() {
+    const theme = useTheme();
 
     return (
         <KeyboardAvoidingView behavior='position' enabled>
@@ -36,8 +32,8 @@ export function SignUpFirstStep() {
                         <BackButton />
 
                         <Steps>
-                            <Bullet active />
                             <Bullet />
+                            <Bullet active />
                         </Steps>
                     </Header>
 
@@ -51,34 +47,27 @@ export function SignUpFirstStep() {
                     </SubTitle>
 
                     <Form>
-                        <FormTitle>1. Dados</FormTitle>
+                        <FormTitle>2. Senha</FormTitle>
 
                         <Inputs>
-                            <Input
-                                placeholder='Nome'
-                                iconName='user'
-                                autoCapitalize='sentences'
-                                autoCorrect={false}
-                            />
-                            <Input
-                                placeholder='E-mail'
-                                iconName='mail'
+                            <PasswordInput
+                                iconName='lock'
+                                placeholder='Senha'
                                 autoCapitalize='none'
-                                keyboardType='email-address'
                                 autoCorrect={false}
                             />
-                            <Input
-                                placeholder='CNH'
-                                iconName='credit-card'
-                                keyboardType='numeric'
+                            <PasswordInput
+                                iconName='lock'
+                                placeholder='Repetir senha'
                                 autoCapitalize='none'
                                 autoCorrect={false}
                             />
                         </Inputs>
 
                         <Button
-                            title="Próximo"
-                            onPress={handleAdvance}
+                            color={theme.colors.success}
+                            title="Cadastrar"
+                            onPress={() => { }}
                         />
                     </Form>
                 </Container>
