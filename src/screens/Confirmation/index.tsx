@@ -1,7 +1,7 @@
 import React from 'react';
 import { StatusBar, useWindowDimensions } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
-import { useNavigation, StackActions } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 import Logo from '../../assets/logo_background_gray.svg';
 import Check from '../../assets/done.svg';
@@ -16,12 +16,21 @@ import {
     Label,
 } from './styles';
 
-export function Confirmation() {
-    const { width } = useWindowDimensions();
-    const { dispatch } = useNavigation();
+interface Params {
+    title: string;
+    auxiliar?: string;
+    nextScreen: any;
+}
 
-    function handleGoAllBack() {
-        dispatch(StackActions.popToTop());
+export function Confirmation() {
+    const { params } = useRoute();
+    const { title, auxiliar, nextScreen } = params as Params;
+
+    const { width } = useWindowDimensions();
+    const { navigate } = useNavigation();
+
+    function handleNavigate() {
+        navigate(nextScreen)
     }
 
     return (
@@ -42,21 +51,13 @@ export function Confirmation() {
                     height={RFValue(80)}                    
                 />
 
-                <Title>
-                    Carro alugado!
-                </Title>
+                <Title>{title}</Title>
 
-                <Subtitle>
-                    Agora você só precisa ir {'\n'}
-                    até a concessionária da RENTX {'\n'}
-                    pegar o seu automóvel.
-                </Subtitle>
+                <Subtitle>{auxiliar}</Subtitle>
             </Info>
 
             <Footer>
-                <Button
-                    onPress={handleGoAllBack}
-                >
+                <Button onPress={handleNavigate}>
                     <Label>Ok</Label>
                 </Button>
             </Footer>

@@ -22,7 +22,7 @@ export function Splash() {
     function start() {
         reset({
             index: 0,
-            routes: [{ name: 'Home' }]
+            routes: [{ name: 'Login' }]
         })
     }
 

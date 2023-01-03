@@ -1,5 +1,11 @@
 import { StackScreenProps } from '@react-navigation/stack';
 
+ type ConfirmationData = {
+    title: string;
+    auxiliar?: string;
+    nextScreen: keyof AppStackRoutes;
+}
+
 type FirstStepData = {
     name: string;
     email: string;
@@ -11,7 +17,7 @@ type AppStackRoutes = {
     CarCardDetails: any;
     Schedule: any;
     ScheduleDetails: any;
-    Confirmation: any;
+    Confirmation: ConfirmationData;
     MyCars: any;
     SignUpFirstStep: any;
     SignUpSecondStep: FirstStepData;

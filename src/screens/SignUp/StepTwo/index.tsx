@@ -6,7 +6,7 @@ import {
     TouchableWithoutFeedback,
 } from 'react-native';
 import { useTheme } from 'styled-components/native';
-import { useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 import { BackButton } from '../../../components/BackButton';
 import { Bullet } from '../../../components/Bullet';
@@ -31,6 +31,7 @@ interface Params {
 
 export function SignUpSecondStep() {
     const theme = useTheme();
+    const { navigate } = useNavigation();
 
     const { params } = useRoute();
     const { name, email, driverLicense } = params as Params;
@@ -46,6 +47,10 @@ export function SignUpSecondStep() {
             Alert.alert('As senhas não coincidem.');
 
         // Registro
+        navigate('Confirmation', {
+            nextScreen: 'Login',
+            title: 'Conta criada!'
+        })
     }
 
     return (

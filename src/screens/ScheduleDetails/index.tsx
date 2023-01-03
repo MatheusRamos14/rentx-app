@@ -69,7 +69,11 @@ export function ScheduleDetails() {
   }
 
   function handleNavigate() {
-    navigate('Confirmation')
+    navigate('Confirmation', {
+      nextScreen: 'Home', 
+      title: 'Carro alugado!',
+      auxiliar: 'Agora você só precisa ir\naté a concessionária da RENTX\npegar o seu automóvel'
+    })
   }
 
   useEffect(() => {
