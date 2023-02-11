@@ -17,6 +17,7 @@ import { NavigationContainer } from '@react-navigation/native';
 
 import theme from './src/styles/theme';
 import { StackRoutes } from './src/routes/stack.routes';
+import { AppProvider } from './src/hooks';
 
 export function App() {
   const [fontsLoaded] = useFonts({
@@ -34,11 +35,11 @@ export function App() {
     extendSplash();
   }, [])
 
-  const onLayoutRootView = useCallback(async ()  => {
+  const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded)
       await hideAsync();
   }, [fontsLoaded])
-  
+
   if (!fontsLoaded)
     return null;
 
@@ -54,7 +55,9 @@ export function App() {
           translucent
         />
         <NavigationContainer>
-          <StackRoutes />
+          <AppProvider>
+            <StackRoutes />
+          </AppProvider>
         </NavigationContainer>
       </ThemeProvider>
     </GestureHandlerRootView>
