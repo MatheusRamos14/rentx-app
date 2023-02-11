@@ -22,6 +22,7 @@ import {
     FormTitle,
     Inputs,
 } from './styles';
+import { api } from '../../../services/api';
 
 interface Params {
     name: string;
@@ -34,7 +35,11 @@ export function SignUpSecondStep() {
     const { navigate } = useNavigation();
 
     const { params } = useRoute();
-    const { name, email, driverLicense } = params as Params;
+    const {
+        name,
+        email,
+        driverLicense: driver_license
+    } = params as Params;
 
     const [password, setPassword] = useState('');
     const [confirmation, setConfirmation] = useState('');
@@ -47,10 +52,18 @@ export function SignUpSecondStep() {
             Alert.alert('As senhas não coincidem.');
 
         // Registro
-        navigate('Confirmation', {
-            nextScreen: 'Login',
-            title: 'Conta criada!'
-        })
+        const signUpData = { name, email, password, driver_license }
+
+        api.post('/users', signUpData)
+            .then(() => {
+                navigate('Confirmation', {
+                    nextScreen: 'Login',
+                    title: 'Conta criada!'
+                })
+            })
+            .catch(err => {
+                Alert.alert("Opa", "Erro inesperado ao tentar efetuar cadastro.")
+            })
     }
 
     return (

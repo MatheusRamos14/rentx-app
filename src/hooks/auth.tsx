@@ -39,9 +39,14 @@ function AuthProvider({ children }: ProviderProps) {
     const [data, setData] = useState<AuthState>({} as AuthState);
 
     async function signIn(credentials: SignInCredentials) {
-        const response = await api.post('/sessions', credentials);
+        const response = await api.post<AuthState>('/sessions', credentials);
 
-        console.log(response.data);
+        const { token, user } = response.data;
+        
+        const defaults = api.defaults.headers as any;
+        defaults.authorization = `Bearer ${token}`;
+
+        setData({ token, user });
     }
 
     return (
