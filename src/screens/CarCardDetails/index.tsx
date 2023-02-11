@@ -110,8 +110,8 @@ export function CarCardDetails() {
             <Name>{car.name}</Name>
           </Model>
           <Rent>
-            <Period>{car.rent.period}</Period>
-            <Value>R$ {car.rent.price}</Value>
+            <Period>{car.period}</Period>
+            <Value>R$ {car.price}</Value>
           </Rent>
         </Info>
 
