@@ -1,14 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { useNavigation } from '@react-navigation/native';
-import Animated, {
-  useSharedValue,
-  useAnimatedStyle,
-  useAnimatedGestureHandler,
-  withSpring,
-} from 'react-native-reanimated';
-import { PanGestureHandler } from 'react-native-gesture-handler';
 
 import Logo from '../../assets/logo.svg';
 import { api } from '../../services/api';
@@ -19,10 +11,7 @@ import {
   Container,
   Header,
   Total,
-  CarList,
-  ButtonContainer,
-  Button,
-  ButtonIcon,
+  CarList
 } from './styles';
 
 export function Home() {
@@ -33,34 +22,7 @@ export function Home() {
 
   function handleNavigateDetails(carDetails: CarDTO) {
     navigation.navigate('CarCardDetails', { car: carDetails })
-  }
-
-  function handleNavigateMyCars() {
-    navigation.navigate('MyCars')
-  }
-
-  const positionX = useSharedValue(0);
-  const positionY = useSharedValue(0);
-
-  const handleGestureEvent = useAnimatedGestureHandler({
-    onActive(event, ctx: any) {
-      positionX.value = event.translationX;
-      positionY.value = event.translationY;
-    },
-    onEnd() {
-      positionX.value = withSpring(0);
-      positionY.value = withSpring(0);
-    }
-  })
-
-  const buttonAnimatedStyle = useAnimatedStyle(() => {
-    return {
-      transform: [
-        { translateX: positionX.value },
-        { translateY: positionY.value }
-      ]
-    }
-  })
+  }  
 
   useEffect(() => {
     async function fetchCarList() {
@@ -106,25 +68,6 @@ export function Home() {
           )}
         />
       )}
-      <PanGestureHandler onGestureEvent={handleGestureEvent}>
-        <Animated.View
-          style={[styles.button, buttonAnimatedStyle]}
-        >
-          <ButtonContainer>
-            <Button onPress={handleNavigateMyCars}>
-              <ButtonIcon />
-            </Button>
-          </ButtonContainer>
-        </Animated.View>
-      </PanGestureHandler>
     </Container>
   );
 }
-
-const styles = StyleSheet.create({
-  button: {
-    position: 'absolute',
-    bottom: 30,
-    right: 0,
-  }
-})

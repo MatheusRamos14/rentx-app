@@ -13,11 +13,10 @@ import {
   Archivo_600SemiBold
 } from '@expo-google-fonts/archivo';
 import { preventAutoHideAsync, hideAsync } from 'expo-splash-screen';
-import { NavigationContainer } from '@react-navigation/native';
 
 import theme from './src/styles/theme';
-import { StackRoutes } from './src/routes/stack.routes';
 import { AppProvider } from './src/hooks';
+import { AppRoutes } from './src/routes';
 
 export function App() {
   const [fontsLoaded] = useFonts({
@@ -54,11 +53,9 @@ export function App() {
           backgroundColor="transparent"
           translucent
         />
-        <NavigationContainer>
-          <AppProvider>
-            <StackRoutes />
-          </AppProvider>
-        </NavigationContainer>
+        <AppProvider>
+          <AppRoutes />
+        </AppProvider>
       </ThemeProvider>
     </GestureHandlerRootView>
   );

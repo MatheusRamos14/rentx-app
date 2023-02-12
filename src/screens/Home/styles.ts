@@ -41,28 +41,3 @@ export const CarList = styled(
   },
   showVerticalScrollIndicator: false
 })``
-
-export const ButtonContainer = styled.View`
-  width: 100%;
-
-  justify-content: center;
-  align-items: flex-end;
-`;
-
-export const Button = styled(RectButton)`
-  width: 64px;
-  height: 64px;
-  background-color: ${({ theme }) => theme.colors.main};
-  border-radius: 30px;
-
-  justify-content: center;
-  align-items: center;
-
-  margin: 12px 22px;
-`;
-
-export const ButtonIcon = styled(Ionicons).attrs({
-  size: 32,
-  name: 'ios-car-sport-sharp',
-  color: '#FFF'
-})``;
