@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     Alert,
     Keyboard,
@@ -12,6 +12,7 @@ import * as Yup from 'yup';
 import { useAuth } from '../../hooks/auth';
 import { Button } from '../../components/Button';
 import { Input } from '../../components/Input';
+import { PasswordInput } from '../../components/PasswordInput';
 import {
     Container,
     Header,
@@ -20,7 +21,6 @@ import {
     Form,
     Footer,
 } from './styles';
-import { PasswordInput } from '../../components/PasswordInput';
 
 export function Login() {
     const theme = useTheme();
