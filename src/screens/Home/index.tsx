@@ -22,23 +22,31 @@ export function Home() {
 
   function handleNavigateDetails(carDetails: CarDTO) {
     navigation.navigate('CarCardDetails', { car: carDetails })
-  }  
+  }
 
   useEffect(() => {
+    let isMounted = true;
+
     async function fetchCarList() {
       setLoading(true)
       try {
         const { data } = await api.get('/cars');
 
-        setCars(data)
+        if (isMounted)
+          setCars(data)
       } catch (err) {
         console.log(err)
       } finally {
-        setLoading(false)
+        if (isMounted)
+          setLoading(false)
       }
     }
 
     fetchCarList();
+
+    return () => {
+      isMounted = false;
+    }
   }, []);
 
   return (
