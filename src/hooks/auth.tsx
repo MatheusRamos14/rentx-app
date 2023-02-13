@@ -2,9 +2,13 @@ import React, {
     useState,
     useContext,
     createContext,
-    ReactNode
+    ReactNode,
+    useEffect
 } from "react";
+
 import { api } from "../services/api";
+import { database } from "../database";
+import { User as UserModel } from "../database/models/User";
 
 interface User {
     id: string;
@@ -12,11 +16,7 @@ interface User {
     name: string;
     driver_license: string;
     avatar: string;
-}
-
-interface AuthState {
     token: string;
-    user: User;
 }
 
 interface SignInCredentials {
@@ -36,21 +36,51 @@ interface ProviderProps {
 const AuthContext = createContext<ContextData>({} as ContextData);
 
 function AuthProvider({ children }: ProviderProps) {
-    const [data, setData] = useState<AuthState>({} as AuthState);
+    const [data, setData] = useState<User>({} as User);
 
     async function signIn(credentials: SignInCredentials) {
-        const response = await api.post<AuthState>('/sessions', credentials);
+        const response = await api.post('/sessions', credentials);
 
-        const { token, user } = response.data;
-        
+        const { user, token } = response.data;
+
         const defaults = api.defaults.headers as any;
-        defaults.authorization = `Bearer ${token}`;
+        defaults.authorization = `Bearer ${user.token}`;
 
-        setData({ token, user });
+        await database.write(async () => {
+            const userCollection = database.get<UserModel>('users');
+            await userCollection.create(newUser => {
+                newUser.user_id = user.id
+                newUser.name = user.name
+                newUser.email = user.email
+                newUser.driver_license = user.driver_license
+                newUser.avatar = user.avatar
+                newUser.token = token
+            });
+        })
+
+        setData({ ...user, token });
     }
 
+    useEffect(() => {
+        async function loadData() {
+            const userCollection = database.get<UserModel>('users');
+            const response = await userCollection.query().fetch();
+
+            if (response.length > 0) {
+                const userData = response[0]._raw as unknown as UserModel;
+                const defaults = api.defaults.headers as any;
+                defaults.authorization = `Bearer ${userData.token}`;
+                setData(userData);
+
+                console.log(userData);
+            }
+        }
+
+        loadData();
+    }, [])
+
     return (
-        <AuthContext.Provider value={{ signIn, user: data.user }}>
+        <AuthContext.Provider value={{ signIn, user: data }}>
             {children}
         </AuthContext.Provider>
     )

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
     Alert,
     Keyboard,
@@ -8,6 +8,7 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from 'styled-components/native';
 import * as Yup from 'yup';
+import { AxiosError } from 'axios';
 
 import { useAuth } from '../../hooks/auth';
 import { Button } from '../../components/Button';
@@ -40,11 +41,14 @@ export function Login() {
             await schema.validate({ email, password });
 
             await signIn({ email, password });
-        } catch (error) {
+        } catch (error) {        
             if (error instanceof Yup.ValidationError)
                 Alert.alert(error.message)
-            else
-                Alert.alert('Erro interno ao efetuar login')
+            else {
+                const err = error as AxiosError;
+                console.log(err.message);
+                Alert.alert('Erro interno ao efetuar login');
+            }
         }
     }
 
