@@ -11,10 +11,10 @@ import {
 } from './styles';
 
 interface Props extends TextInputProps {
-    iconName: React.ComponentProps<typeof Feather>['name']
+    iconName?: React.ComponentProps<typeof Feather>['name']
 }
 
-export function PasswordInput({ iconName, value, ...rest }: Props) {
+export function PasswordInput({ iconName="lock", value, ...rest }: Props) {
     const theme = useTheme();
     const [secure, setSecure] = useState(true);
     const [filled, setFilled] = useState(false);
@@ -49,6 +49,8 @@ export function PasswordInput({ iconName, value, ...rest }: Props) {
                 secureTextEntry={secure}
                 onFocus={handleFocus}
                 onBlur={handleBlur}
+                autoCorrect={false}
+                autoCapitalize="none"                
                 {...rest}
             />
 

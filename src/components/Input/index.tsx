@@ -42,6 +42,8 @@ export function Input({ iconName, value, ...rest }: Props) {
                     onFocus={handleFocus}
                     onBlur={handleBlur}
                     focused={focused}
+                    autoCorrect={false}
+                    autoCapitalize="none"
                     {...rest}
                 />
             </Container>
