@@ -27,7 +27,7 @@ import { PasswordInput } from '../../components/PasswordInput';
 
 export function Profile() {
     const theme = useTheme();
-    const { user } = useAuth();
+    const { user, signOut } = useAuth();
 
     const [option, setOption] = useState<"dataEdit" | "passwordEdit">("dataEdit");
     const [avatar, setAvatar] = useState<string>(user.avatar);
@@ -49,6 +49,10 @@ export function Profile() {
         setAvatar(result.uri);
     }
 
+    async function handleLogout() {
+        await signOut();
+    }
+
     return (
         <KeyboardAvoidingView behavior='position' enabled>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -61,7 +65,7 @@ export function Profile() {
                                 Editar Perfil
                             </HeaderTitle>
 
-                            <LogoutButton>
+                            <LogoutButton onPress={handleLogout}>
                                 <Feather
                                     name="power"
                                     size={24}
