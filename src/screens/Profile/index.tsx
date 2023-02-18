@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
-import { KeyboardAvoidingView, Keyboard, TouchableWithoutFeedback } from 'react-native';
+import {
+    Alert,
+    KeyboardAvoidingView,
+    Keyboard,
+    TouchableWithoutFeedback 
+} from 'react-native';
 import { useTheme } from 'styled-components/native';
 import { Feather } from '@expo/vector-icons';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import * as ImagePicker from 'expo-image-picker';
+import * as Yup from 'yup';
 
 import { useAuth } from '../../hooks/auth';
 import { BackButton } from '../../components/BackButton';
@@ -24,13 +30,17 @@ import {
     Section,
 } from './styles';
 import { PasswordInput } from '../../components/PasswordInput';
+import { Button } from '../../components/Button';
 
 export function Profile() {
     const theme = useTheme();
-    const { user, signOut } = useAuth();
+    const { user, signOut, updateUser } = useAuth();
 
     const [option, setOption] = useState<"dataEdit" | "passwordEdit">("dataEdit");
     const [avatar, setAvatar] = useState<string>(user.avatar);
+
+    const [name, setName] = useState(user.name);
+    const [driverLicense, setDriverLicense] = useState(user.driver_license);
 
     function handleChangeOption(option: "dataEdit" | "passwordEdit") {
         setOption(option)
@@ -49,8 +59,52 @@ export function Profile() {
         setAvatar(result.uri);
     }
 
+    async function handleUserUpdate() {
+        try {
+            const schema = Yup.object({
+                name: Yup.string().required("O campo nome é obrigatório"),
+                driverLicense: Yup.string().required("O campo CNH é obrigatório")
+            })
+            
+            const data = { name, driverLicense };
+            await schema.validate(data);
+
+            await updateUser({
+                id: user.id,
+                avatar,
+                driver_license: driverLicense,
+                email: user.email,
+                name,
+                token: user.token
+            });
+
+            Alert.alert("Perfil atualizado!");
+        } catch (error) {
+            if (error instanceof Yup.ValidationError) {
+                Alert.alert('Opa', error.message);
+            } else {
+                const err = error as any;
+                console.log(err);
+                Alert.alert('Não foi possível atualizar o perfil');
+            }
+        }
+    }
+
     async function handleLogout() {
-        await signOut();
+        Alert.alert(
+            "Tem certeza?",
+            "Se sair, será preciso conexão com a internet para efetuar login novamente.",
+            [
+                {
+                    text: "Cancelar",
+                    onPress: () => {}
+                },
+                {
+                    text: "Sair",
+                    onPress: async () => await signOut()
+                }
+            ]
+        )
     }
 
     return (
@@ -112,7 +166,9 @@ export function Profile() {
                                 <Input
                                     iconName='user'
                                     placeholder='Nome'
-                                    defaultValue={user.name}
+                                    defaultValue={name}
+                                    value={name}
+                                    onChangeText={setName}
                                 />
                                 <Input
                                     iconName='mail'
@@ -123,8 +179,15 @@ export function Profile() {
                                     iconName='credit-card'
                                     placeholder='CNH'
                                     keyboardType="numeric"
-                                    defaultValue={user.driver_license}
-                                />
+                                    defaultValue={driverLicense}
+                                    value={driverLicense}
+                                    onChangeText={setDriverLicense}
+                                />         
+
+                                <Button
+                                    title="Salvar alterações"
+                                    onPress={handleUserUpdate}
+                                />                       
                             </Section>
                         ) : (
                             <Section>
@@ -139,6 +202,7 @@ export function Profile() {
                                 />
                             </Section>
                         )}
+                        
                     </Content>
                 </Container>
             </TouchableWithoutFeedback>

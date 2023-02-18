@@ -28,6 +28,7 @@ interface ContextData {
     user: User;
     signIn: (credentials: SignInCredentials) => Promise<void>;
     signOut: () => Promise<void>;
+    updateUser: (userUpdated: User) => Promise<void>;
 }
 
 interface ProviderProps {
@@ -68,11 +69,34 @@ function AuthProvider({ children }: ProviderProps) {
                 const userCollection = database.get<UserModel>('users');
                 const user = await userCollection.find(data.id);
                 await user.destroyPermanently();
-
-                setData({} as User);
             })
+
+            
+            setData({} as User);
         } catch (error) {
-            throw new Error(error as any);
+            const err = error as any;
+            console.log(err);
+            throw new Error(err);
+        }
+    }
+
+    async function updateUser(userUpdated: User) {
+        try {
+            await database.write(async () => {
+                const userCollection = database.get<UserModel>('users');
+                const user = await userCollection.find(userUpdated.id);
+                await user.update(oldUser => {
+                    oldUser.name = userUpdated.name,
+                    oldUser.driver_license = userUpdated.driver_license,
+                    oldUser.avatar = userUpdated.avatar
+                })
+            })
+
+            setData(userUpdated);
+        } catch (error) {
+            const err = error as any;
+            console.log(err);
+            throw new Error(err);
         }
     }
 
@@ -95,7 +119,7 @@ function AuthProvider({ children }: ProviderProps) {
     }, [])
 
     return (
-        <AuthContext.Provider value={{ signIn, user: data, signOut }}>
+        <AuthContext.Provider value={{ signIn, user: data, signOut, updateUser }}>
             {children}
         </AuthContext.Provider>
     )
