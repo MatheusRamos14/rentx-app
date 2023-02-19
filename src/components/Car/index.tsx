@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { CarDTO } from '../../dtos/CarDTO';
+import { Car as CarModel } from '../../database/models/Car';
 import { getAccessoryIcon } from '../../utils/getAccessoryIcon';
 import {
     Container,
@@ -15,7 +15,7 @@ import {
     Type,
 } from './styles';
 interface Props {
-    data: CarDTO,
+    data: CarModel,
     handleNavigate: () => void;
 }
 
@@ -41,9 +41,9 @@ export function Car({ data, handleNavigate }: Props) {
                     </Type>
                 </About>
             </Details>
-            <Photo
+            {!!data.thumbnail && <Photo
                 source={{ uri: data.thumbnail }}
-            />
+            />}
         </Container>
     );
 }
